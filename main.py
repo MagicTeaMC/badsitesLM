@@ -64,5 +64,6 @@ def ask_llm(url, web_content):
 a = input("Paste the URL here: ")
 headers = {'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; badsitesLM/1.0; +https://github.com/MagicTeaMC/badsitesLM'}
 r = requests.get(a, allow_redirects=True, headers=headers)
-llm_output = ask_llm(a, str(r.text.split('\n')[:3]))
+print("Waiting for response....")
+llm_output = ask_llm(a, str(r.text.split('\n')[:7]))
 print(f"LLM thinks the link you provided ({a}) is {llm_output[0]}")
