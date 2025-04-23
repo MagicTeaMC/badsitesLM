@@ -2,6 +2,7 @@ import os
 from groq import Groq
 from dotenv import load_dotenv
 import requests
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
@@ -29,6 +30,7 @@ def ask_llm(url, web_content):
                 11. Be skeptical of unbelievable discounts or deals. If an offer seems drastically lower than what you'd typically find, the website might be fake.
                 12. Excessive pop-up ads or requests for unusual personal information can indicate a malicious site.
                 13. If a pop-up directs you to download software or a program to “fix” the issue, it's likely malware designed to harm your computer.
+                14. Use Cloudflare or other service to protect their website don't mean the website is real, it CAN NOT be a reason to check if the website is real or fake.
 
                 Here are some examples for your reference:
              
@@ -52,7 +54,7 @@ def ask_llm(url, web_content):
                 "content": "The URL is: " + url + " the website content is: " + web_content ,
             },
         ],
-        model="meta-llama/llama-4-maverick-17b-128e-instruct",
+        model="llama-3.3-70b-versatile",
     )
     response_content = chat_completion.choices[0].message.content
 
@@ -64,6 +66,9 @@ def ask_llm(url, web_content):
 a = input("Paste the URL here: ")
 headers = {'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; badsitesLM/1.0; +https://github.com/MagicTeaMC/badsitesLM'}
 r = requests.get(a, allow_redirects=True, headers=headers)
-print("Waiting for response....")
-llm_output = ask_llm(a, str(r.text.split('\n')[:7]))
+r.raise_for_status()
+
+soup = BeautifulSoup(r.content, 'html.parser')
+text_content = soup.get_text(separator='\n', strip=True)
+llm_output = ask_llm(a, text_content)
 print(f"LLM thinks the link you provided ({a}) is {llm_output[0]}")
