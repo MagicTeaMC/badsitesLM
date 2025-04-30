@@ -3,8 +3,10 @@ Use LLM to find if the site is bad.
 ## Demo  
 A Minecraft server software website:  
 ![a](image/1.png)  
+  
 A Taiwanese high school website:  
-![b](image/2.png)  
+![b](image/2.png) 
+   
 A fake website:  
 ![c](image/3.png)  
 ## Usage
