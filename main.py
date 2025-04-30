@@ -47,6 +47,8 @@ def ask_llm(url, web_content):
                 My Response: Probably fake, because....
 
                 DO NOT output "My Response", You can add more text for SHORT interpretation!
+
+                Additionally, the website content has been format by BeautifulSoup, which make you easy to check the content
              """,
             },
             {
@@ -62,13 +64,19 @@ def ask_llm(url, web_content):
         return []
     else:
         return [response_content]
+    
+MAX_TOKENS = 12000
 
 a = input("Paste the URL here: ")
-headers = {'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; badsitesLM/1.0; +https://github.com/MagicTeaMC/badsitesLM'}
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0; badsitesLM/1.0; +https://github.com/MagicTeaMC/badsitesLM'}
 r = requests.get(a, allow_redirects=True, headers=headers)
 r.raise_for_status()
 
 soup = BeautifulSoup(r.content, 'html.parser')
 text_content = soup.get_text(separator='\n', strip=True)
+
+text_content = text_content[:MAX_TOKENS]
+
 llm_output = ask_llm(a, text_content)
+
 print(f"LLM thinks the link you provided ({a}) is {llm_output[0]}")
