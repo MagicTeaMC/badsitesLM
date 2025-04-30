@@ -17,7 +17,7 @@ def ask_llm(url, web_content):
                 "role": "system",
                 "content": """You are a website checker, which means you need to check if a website can be trust or is fake
                 Here are some rules you must follow:
-                1. Some website can be easy to detect, like it say it is Taiwanese goverment but the URL is not xxx.gov.tw
+                1. Some website can be easy to detect, like it say it is Taiwanese goverment but the URL is not end with .gov.tw
                 2. If the website have some extremely cheap things, it might be fake
                 3. Fake websites often have URLs that are very similar to the real ones but with slight misspellings, extra letters, or characters. For example, "amaz0n.com" instead of "amazon.com".
                 4. Be wary of unfamiliar extensions like .org, .net, .biz, or others if the legitimate site uses .com.
@@ -31,6 +31,8 @@ def ask_llm(url, web_content):
                 12. Excessive pop-up ads or requests for unusual personal information can indicate a malicious site.
                 13. If a pop-up directs you to download software or a program to “fix” the issue, it's likely malware designed to harm your computer.
                 14. Use Cloudflare or other service to protect their website don't mean the website is real, it CAN NOT be a reason to check if the website is real or fake.
+                15. Fake websites, especially those involved in scams, often try to create a sense of urgency. They might use phrases like "Limited time offer!" or "Act now before it's too late!" to rush you into making a decision without thinking critically.
+                16. If something about a website feels "off" or too good to be true, it probably is. Don't ignore your gut feeling. It's better to be cautious than to become a victim of a fake website.
 
                 Here are some examples for your reference:
              
